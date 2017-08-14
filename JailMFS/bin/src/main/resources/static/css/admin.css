@@ -1,0 +1,144 @@
+@charset "ISO-8859-1";
+
+body{
+	padding:0;
+	font-family: 'Raleway', sans-serif;
+	background:#fafbfc;
+}
+
+a:hover{
+	text-decoration:none;
+}
+
+a:focus{
+	text-decoration:none;
+}
+
+a:active{
+	text-decoration:none;
+}
+
+h3{
+	font-weight:400;
+	margin-top:0;
+}
+
+.navbar-inverse{
+	background:#2b324c;
+}
+
+.sidebar{
+	background:#0747a6;
+	margin-top:-51px;
+}
+
+.nav-sidebar>.active>a{
+	background-color:#073c8d;
+}
+
+.nav>li>a{
+	color:#bacff0;
+}
+
+.nav>li>a:hover{
+	background:#073c8d;
+}
+
+.nav>li>a:active{
+	background:#073c8d;
+}
+
+.nav>li>a:focus{
+	background:#073c8d;
+}
+
+.title-name{
+	text-decoration:none;
+	font-size:25px;
+	font-weight:700;
+	color:white;
+}
+
+.title-name:hover{
+	color:white;
+	text-decoration:none;
+}
+
+.report-item-title{
+	font-size:17px;
+	font-weight:400;
+}
+
+
+
+/* CSS de reportes */
+
+.report-card{
+	height:130px;
+	display:flex;
+	flex-direction:row;
+	justify-content:center;
+	align-items:center;
+	padding:15px;
+}
+
+.report-card>img{
+	height:70px;
+	width:70px;
+	margin-right:10px;
+	margin-left:0;
+}
+
+.report-card:hover{
+	background:#f3f3f3;
+}
+
+.filter-menu{
+	background:#2b324c;
+	padding:20px;
+	border-radius:6px;
+}
+
+.filter-menu>*{
+	margin-right:10px;
+}
+
+.filter-label{
+	color:white;
+	font-weight:500;
+}
+
+.blocks-button{
+	min-width:115px;
+	height:34px;
+	background:#fff;
+}
+
+.visitors-header-container{
+	padding-left:0px;
+}
+
+.visitors-subheader{
+	
+	font-weight:400;
+}
+
+.result-menu{
+	margin-top:2em;
+}
+
+.tresults{
+	margin-top:6em;
+}
+
+.page-header{
+	font-weight:400;
+	padding-left:0;
+	margin-left:0;
+}
+
+.csearch-button{
+	margin-top:1.8em;
+	width:150px;
+}
+

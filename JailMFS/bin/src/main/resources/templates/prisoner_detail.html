@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment"></head>
+<meta charset="UTF-8"/>
+<link rel="stylesheet" type="text/css" href="css/prisoner_detail.css"/>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+          		<h3 class="page-header" th:text=" 'Prisionero ' +${prisoner.getName()}"></h3>
+          		<div class="row">
+          			<div class="col-xs-12 text-center"> 
+          				<div class="col-xs-6 col-md-6">
+							<a class="btn btn-info btn-lg pull-right" th:href="@{/prisoners/{id}/edit(id=${prisoner.getId()})}">Editar</a>
+						</div>         		
+						<div class="col-xs-6 col-md-6">
+							<form method="post" th:action="@{prisoners/delete}" id="deleteForm" class="pull-left">
+								<input name="id" type="hidden" th:value="${prisoner.getId()}"></input>
+								<input type="submit" class="btn btn-danger btn-lg" value="Eliminar" onClick="return confirmDelete()"></input>
+							</form>
+						</div>
+       				</div>
+   				</div>
+   				<hr></hr>
+          		<div class="row detail-field-row">
+          			<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+          				<h4>Nombre</h4>
+          				<p th:text="${prisoner.getName()}"></p>
+          			</div>
+          			<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+          				<h4>Apellido</h4>
+          				<p th:text="${prisoner.getLastName()}"></p>
+          			</div>
+          		</div>
+          		<div class="row detail-field-row">
+          			<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+          				<h4>Lugar de nacimiento</h4>
+          				<p th:text="${prisoner.getBirthPlace()}"></p>
+          			</div>
+          			<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+          				<h4>Fecha de nacimiento</h4>
+          				<p th:text="${prisoner.getBirthDate()}"></p>
+          			</div>
+          		</div>
+          		<div class="row detail-field-row">
+          			<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+          				<h4>Número de serie</h4>
+          				<p th:text="${prisoner.getSerialNumber()}"></p>
+          			</div>
+          			<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+          				<h4>Número de contacto</h4>
+          				<p th:text="${prisoner.getContactPhoneNumber()}"></p>
+          			</div>
+          		</div>
+          		
+          		<div class="row detail-field-row">
+          			<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+          				<h4>Bloque</h4>
+          				<p th:text="${prisoner.getCell().getBlock().getId()}"></p>
+          			</div>
+          			<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+          				<h4>Celda</h4>
+          				<p th:text="${prisoner.getCell().getId()}"></p>
+          			</div>
+          		</div>
+          		
+          		<br/>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<h4>Visitantes autorizados</h4>
+						<div class="table-responsive" th:if="not ${prisoner.getAuthorizations().empty}">
+							<table class="table table-hover table-condensed">
+								<thead>
+									<tr>
+										<th>Nombre</th>
+										<th>Identificacion</th>
+										<th>Parentesco</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="auth:${prisoner.getAuthorizations()}">
+										<td th:text="${auth.getVisitor().getFullName()}"></td>
+										<td th:text="${auth.getVisitor().getIdCard()}"></td>
+										<td th:text="${auth.getRelationship()}"></td>
+										<td>
+											<form method="post" th:action="@{prisoners/deleteAuth}">
+												<div class="form-inline">
+													<a class="btn btn-info btn-sm" th:href="'visitors/'+${auth.getVisitor().getId()}">
+														<span class="glyphicon glyphicon glyphicon-info-sign"></span>													
+													</a>
+													<input type="hidden" th:value="${prisoner.getId()}" name="id"></input>	
+													<input type="hidden" th:value="${auth.getId()}" name="authid"></input>													
+													<button type="button" class="btn btn-danger btn-sm btn-deleteAuth">
+														<span class="glyphicon glyphicon-trash"></span>
+													</button>
+												</div>
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<h3 th:if="${prisoner.getAuthorizations().empty}" class="text-center">
+						El prisionero no tiene visitantes autorizados
+					</h3>
+				</div>
+				
+				<br/>
+				
+				<div class="row">
+					<div class="col-xs-12">
+						<h4>Condenas</h4>
+						<div class="table-responsive" th:if="not ${prisoner.getSentences().empty}">
+							<table class="table table-hover table-condensed">
+								<thead>
+									<tr>
+										<th>Inicio</th>
+										<th>Fin</th>
+										<th>Motivo</th>		
+										<th></th>								
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="sent:${prisoner.getSentences()}">
+										<td th:text="${sent.getStartDate()}"></td>
+										<td th:text="${sent.getEndDate()}"></td>
+										<td th:text="${sent.getReason()}"></td>
+										<td>
+											<form method="post" th:action="@{prisoners/deleteSent}">
+												<input type="hidden" th:value="${prisoner.getId()}" name="id"></input>	
+												<input type="hidden" th:value="${sent.getId()}" name="sentid"></input>													
+												<button type="button" class="btn btn-danger btn-sm btn-deleteSent">
+													<span class="glyphicon glyphicon-trash"></span>
+												</button>
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h3 th:if="${prisoner.getSentences().empty}" class="text-center">
+							El prisionero no tiene condenas
+						</h3>
+						<br/>
+						<div class="text-center">
+							<a class="btn btn-lg btn-success" th:href="'prisoners/'+${prisoner.getId()+'/newSentence'}">Agregar condena</a>
+						</div>
+					</div>					
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+	
+	<script src="js/prisoner_detail.js"></script>
+	<script src="js/prisoners.js"></script>
+
+</body>
+</html>

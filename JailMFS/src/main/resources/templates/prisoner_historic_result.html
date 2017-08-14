@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+
+				<h3 class="page-header"
+					th:text="'Historico de visitas para el preso '+${prisoner.getName()}+' '+${prisoner.getLastName()}"></h3>
+
+				<div class="row results">
+					<div class="result-menu">
+						<div class="col-sm-12 col-md-6 visitors-header-container">
+							<h4 class="visitors-subheader">Resultados:</h4>
+						</div>
+
+						<div class="col-sm-12 col-md-6 export-button-container">
+							<button type="button" class="btn btn-info pull-right">Exportar</button>
+						</div>
+						<div th:if="not ${visitsToPrisoner.empty}">
+							<table class="table table-hover tresults">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Nombre del visitante</th>
+										<th>Cedula del visitante</th>
+										<th>Fecha visita</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="result,itSt:${visitsToPrisoner}">
+										<td th:text="'Visita '+${itSt.count}"></td>
+										<td th:text="${result.getVisitorFullName()}"></td>
+										<td th:text="${result.getVisitorIdCard()}"></td>
+										<td th:text="${result.getVisitDate()}"></td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+						<div class="text-center">
+							<h3 th:if="${visitsToPrisoner.empty}" class="text-center">El
+								prisionero no tiene visitas</h3>
+						</div>
+
+					</div>
+					<br/>
+					<nav aria-label="Page navigation">
+						<ul class="pagination">
+							<li><a href="#" aria-label="Previous"> <span
+									aria-hidden="true">&laquo;</span>
+							</a></li>
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#" aria-label="Next"> <span
+									aria-hidden="true">&raquo;</span>
+							</a></li>
+						</ul>
+					</nav>
+					
+				</div>
+
+
+
+			</div>
+
+		</div>
+	</div>
+
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+
+</body>
+</html>

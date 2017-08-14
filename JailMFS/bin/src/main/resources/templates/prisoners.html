@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment">
+ <meta charset="UTF-8" />
+	<title>Prisioneros</title>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+
+				<h3 class="page-header">Administrar Presos</h3>
+
+
+				<div class="form form-inline">
+					<div class="input-group">
+						<input type="search" class="form-control" placeholder="Buscar..."></input> <span class="input-group-btn">
+							<button type="submit" class="btn btn-default">
+								<span class="glyphicon glyphicon-search"> <span
+									class="sr-only">Search</span>
+								</span>
+							</button>
+						</span>
+					</div>
+					<a href="/jmfs/prisoners/new" class="btn btn-success">Agregar</a>
+				</div>
+				
+				<hr/>
+				
+				<h4>Haga <strong>click</strong> en un prisionero para ver mas información</h4>
+				<br></br>
+				
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Lugar de nacimiento</th>
+								<th>Fecha de nacimiento</th>
+								<th>Número de serie</th>
+								<th>Número de contacto</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="prisoner:${prisoners}">
+								<td th:text="${prisoner.getName()}" ></td>
+								<td th:text="${prisoner.getLastName()}" ></td>
+								<td th:text="${prisoner.getBirthPlace()}" ></td>
+								<td th:text="${prisoner.getBirthDate()}" ></td>
+								<td th:text="${prisoner.getSerialNumber()}" ></td>
+								<td th:text="${prisoner.getContactPhoneNumber()}" ></td>
+								<td>
+									<div class="form-inline">
+										<a class="btn btn-info btn-sm" th:href="@{/prisoners/} + ${prisoner.getId()}">
+											<span class="glyphicon glyphicon glyphicon-info-sign"></span>
+										</a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+
+	
+	<div class="row placeholders">
+		
+	</div>
+		
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+	
+	<script src="js/prisoners.js"></script>
+
+</body>
+</html>

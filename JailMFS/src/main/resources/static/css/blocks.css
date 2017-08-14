@@ -1,0 +1,18 @@
+.new-block .glyphicon-plus-sign {
+	font-size: 250%;
+}
+
+.new-block{
+	height:130px;
+	display:flex;
+	flex-direction:row;
+	justify-content:center;
+	align-items:center;
+	padding:15px;
+}
+
+.new-block>img{
+	height:70px;
+	width:70px;
+	margin-right:10px;
+}

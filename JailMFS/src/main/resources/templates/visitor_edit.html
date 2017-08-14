@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment">
+<meta charset="UTF-8" />
+</head>
+
+<link rel="stylesheet" type="text/css" href="css/prisoner_detail.css" />
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+			
+				<h3 class="page-header">Editar visitante</h3>
+
+				<form th:action="'/jmfs/visitors/'+${visitor.getId()}+'/edit'" method="POST">
+
+					<div class="row detail-field-row">
+						<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+							<div class="form-group">
+								<label>Cédula</label> <input type="number" class="form-control"
+									placeholder="Alam" th:field="*{visitor.idCard}" required=""></input>
+							</div>
+
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+							<div class="form-group">
+								<label>Primer nombre</label> <input type="text"
+									class="form-control" placeholder="Alam"
+									th:field="*{visitor.name}" required=""></input>
+							</div>
+						</div>
+					</div>
+
+					<div class="row detail-field-row">
+
+						<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+							<div class="form-group">
+								<label>Apellido</label> <input type="text" class="form-control"
+									placeholder="Brito" th:field="*{visitor.lastName}" required=""></input>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+							<div class="form-group">
+								<label>Fecha de nacimiento</label> <input type="date"
+									class="form-control" placeholder=""
+									th:field="*{visitor.birthday}" required=""></input>
+							</div>
+						</div>
+					</div>
+
+					<div class="row detail-field-row">
+
+
+						<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+							<div class="form-group">
+								<label>Ciudad de Nacimiento</label> <input type="text"
+									class="form-control" th:field="*{visitor.birthplace}"
+									placeholder="Manizales, etc" required=""></input>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+							<div class="form-group">
+								<label>Dirección</label><input type="text" class="form-control"
+									placeholder="Carrera nn # 10 - 23 Manizales"
+									th:field="*{visitor.address}" required=""></input>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="row detail-field-row">
+
+						<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+							<div class="form-group">
+								<label>Teléfono</label><input type="number" class="form-control"
+									placeholder="3117693058" th:field="*{visitor.phone}"
+									required=""></input>
+							</div>
+						</div>
+
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-xs-12 col-md-12 text-center">
+							<div class="form-inline">
+								<input type="submit" class="btn btn-success btn-lg"
+									value="Guardar"></input>
+							</div>
+						</div>
+					</div>
+
+				</form>
+			</div>
+
+
+
+		</div>
+
+
+	</div>
+
+	<div th:text="${errors}"></div>
+
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+
+</body>
+</html>

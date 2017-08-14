@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+
+				<h3 class="page-header">Administrar Celdas</h3>
+
+				<div class="row placeholders"></div>
+
+			</div>
+			
+		</div>
+	</div>
+
+	
+	<div th:replace="admin_view_base :: scripts-fragment">
+		
+	</div>
+
+</body>
+</html>

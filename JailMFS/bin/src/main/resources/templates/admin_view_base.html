@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header-fragment">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <base href="/jmfs/"/>
+    <link rel="stylesheet" type="text/css" href="libs/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="libs/css/bootstrap-select.min.css"/>
+    <link rel="stylesheet" type="text/css" href="libs/css/sweetalert.css"/>
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
+    <link rel="stylesheet" type="text/css" href="css/admin.css"/>
+    <link rel="stylesheet" type="text/css" href="libs/css/angular-bootstrap-calendar.min.css"/>
+    <link rel="stylesheet" type="text/css" href="libs/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="libs/css/bootstrap-formhelpers.min.css"/>
+    <link rel="stylesheet" type="text/css" href="libs/css/bootstrap-datepicker.min.css"/>
+    
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700" rel="stylesheet"/>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-3 sidebar" th:fragment="nav-fragment">
+        	<a class="title-name" href="/">JMFS</a>
+        	
+          <ul class="nav nav-sidebar">
+            <li><a href="/jmfs/prisoners">Administrar Presos<span class="sr-only">(current)</span></a></li>
+            <li><a href="/jmfs/blocks">Administrar Bloques</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="/jmfs/interviews">Agendar Entrevistas</a></li>
+            <li><a href="/jmfs/visitors">Administrar Visitantes</a></li>
+            <li><a href="/jmfs/visits">Registrar Visitas</a></li>
+            
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="/jmfs/reports">Reportes</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+          <h3 class="page-header">Dashboard</h3>
+
+          <div class="row placeholders">
+            
+          </div>
+
+          <h4 class="sub-header">Subtitulo</h4>
+          
+        </div>
+      </div>
+    </div>
+	
+	<div th:fragment="scripts-fragment">
+		<script src="libs/js/jquery-3.2.1.min.js"></script>
+    	<script src="libs/js/bootstrap.min.js"></script>
+    	<script src="libs/js/bootstrap-select.min.js"></script>
+    	<script src="libs/js/sweetalert.min.js"></script>
+    	<script src="libs/js/angular.min.js"></script>
+    	<script src="libs/js/moment-with-locales.js"></script>
+    	<script src="libs/js/bootstrap-datetimepicker.min.js"></script>
+    	<script src="libs/js/bootstrap-formhelpers.min.js"></script>
+    	<script src="libs/js/bootstrap-datepicker.min.js"></script>
+	</div>
+
+</body>
+
+</html>
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+
+				<h3 class="page-header">Listado de visitantes mas frecuentes</h3>
+
+				<div class="row filter-menu">
+					<form method="get" action="reports/fvisitors">
+						<div class="col-sm-12 col-md-2">
+							<label class="filter-label" for="exampleInputEmail1">Bloque</label>
+							<select id="block-select"
+								class="selectpicker show-tick form-control" name="blockId"
+								title="Elija un bloque">
+								<option th:each="block:${blocks}"
+									th:text="'Bloque '+${block.getId()}"
+									th:value="${block.getId()}"></option>
+
+							</select>
+						</div>
+
+						<div class="col-sm-12 col-md-3">
+							<label class="filter-label" for="">Fecha de inicio</label> <input
+								name="startDate" id="startDate" type="date" class="form-control"></input>
+						</div>
+
+						<div class="col-sm-12 col-md-3">
+							<label class="filter-label" for="exampleInputEmail1">Fecha
+								de fin</label> <input id="endDate" name="endDate" type="date" class="form-control"></input>
+						</div>
+
+
+
+						<div class="col-sm-12 col-md-2">
+							<input type="submit" class="btn btn-success csearch-button"
+								value="Consultar" />
+						</div>
+					</form>
+
+				</div>
+
+
+
+
+				<div class="row results">
+					<div class="result-menu">
+						<div class="col-sm-12 col-md-6 visitors-header-container">
+							<h4 class="visitors-subheader">Resultados:</h4>
+						</div>
+					</div>
+
+					<table class="table table-hover tresults">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Cedula</th>
+								<th>Nombre</th>
+								<th>C. Visitas</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="visitor,itSt:${visitors}">
+								<th scope="row" th:text="${itSt.count}"></th>
+								<td th:text="${visitor.getIdCard()}"></td>
+								<td th:text="${visitor.getFullName()}"></td>
+								<td th:text="${visitor.getVisitsToBlockBetweenDates()}"></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+	<script type="text/javascript">
+		$("#startDate").change(function(){	
+			$("#endDate").attr("min", this.value);
+		});
+		
+		var url_string = location.href;
+		var url = new URL(url_string);
+		var block = url.searchParams.get("blockId");
+		var startDate = url.searchParams.get("startDate");
+		var endDate = url.searchParams.get("endDate");
+
+		if(block!=""){
+			$("#block-select").val(block);
+		}
+		
+		if(startDate!=""){
+			$("#startDate").val(startDate);
+		}
+		
+		if(endDate!=""){
+			$("#endDate").val(endDate);
+		}
+		
+	</script>
+
+</body>
+</html>

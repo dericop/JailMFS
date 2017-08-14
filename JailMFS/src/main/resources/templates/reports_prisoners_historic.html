@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+
+				<h3 class="page-header">Historico de visitas por preso</h3>
+
+				<div class="row filter-menu">
+
+					<div class="col-xs-12">
+
+						<form action="" th:action="@{reports/prisoners-historic}"
+							method="get" class="form-inline">
+							<div class="form-group">
+								<select id="prisoner-select" class="selectpicker form-control"
+									data-live-search="true" name="prisoner_id"
+									title="Seleccione un prisionero">
+									<option th:each="prisoner:${prisoners}"
+										th:text="${prisoner.getFullName()}"
+										th:value="${prisoner.getId()}"></option>
+								</select>
+							</div>
+							<div class="form-group">
+								<input type="submit"
+									class="btn btn-info pull-right form-control" value="Consultar" />
+							</div>
+						</form>
+
+					</div>
+
+				</div>
+
+				<div class="row results">
+					<div class="result-menu">
+						<div class="col-sm-12 col-md-6 visitors-header-container">
+							<h4 class="visitors-subheader">Resultados:</h4>
+						</div>
+
+					</div>
+
+					<table class="table table-hover tresults">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Nombre del visitante</th>
+								<th>Cedula del visitante</th>
+								<th>Fecha visita</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="visit,itSt:${visitsToPrisoner}">
+								<th scope="row" th:text="${itSt.count}"></th>
+								<td th:text="${visit.getVisitor().getFullName()}"></td>
+								<td th:text="${visit.getVisitor().getIdCard()}"></td>
+								<td th:text="${visit.getDate()}"></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+	<script type="text/javascript">
+		var url_string = location.href;
+		var url = new URL(url_string);
+		var prisoner = url.searchParams.get("prisoner_id");
+		
+		if(prisoner!=""){
+			$("#prisoner-select").val(prisoner);
+		}
+		
+		
+	</script>
+
+</body>
+</html>

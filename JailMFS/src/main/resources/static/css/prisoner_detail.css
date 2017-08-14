@@ -1,0 +1,14 @@
+.detail-field{	
+	padding: 0;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.detail-field h4{
+	margin-bottom: 10px;
+	font-weight: 600;
+}
+
+.detail-field-row{
+	margin-bottom: 1%;
+}

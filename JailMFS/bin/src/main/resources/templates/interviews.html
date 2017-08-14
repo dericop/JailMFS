@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment">
+<meta charset="UTF-8"></meta>
+</head>
+
+<body ng-app="jmfs">
+	<div class="container-fluid">
+		<div class="row" ng-controller="InterviewsController as vm">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+
+				<h3 class="page-header">Entrevistas</h3>
+				<h4>{{vm.viewTitle}}</h4>
+
+
+				<button class="btn btn-primary" mwl-date-modifier="" date="viewDate"
+					decrement="calendarView">Anterior</button>
+
+				<button class="btn btn-default" mwl-date-modifier="" date="viewDate"
+					set-to-today="">Hoy</button>
+
+				<button class="btn btn-primary" mwl-date-modifier="" date="viewDate"
+					increment="calendarView">Siguiente</button>
+
+				<div class="btn-group pull-right">
+					<label
+						class="btn btn-primary ng-pristine ng-untouched ng-valid ng-not-empty"
+						ng-model="calendarView" uib-btn-radio="'year'">Año</label> <label
+						class="btn btn-primary ng-untouched ng-valid ng-not-empty ng-dirty active ng-valid-parse"
+						ng-model="calendarView" uib-btn-radio="'month'" style="">Mes</label>
+					<label
+						class="btn btn-primary ng-untouched ng-valid ng-not-empty ng-dirty"
+						ng-model="calendarView" uib-btn-radio="'week'">Semana</label> <label
+						class="btn btn-primary ng-pristine ng-untouched ng-valid ng-not-empty"
+						ng-model="calendarView" uib-btn-radio="'day'">Día</label>
+				</div>
+				<br /> <br /> <br />
+
+				<mwl-calendar view="calendarView" view-date="viewDate"
+					events="events" view-title="calendarTitle"
+					on-event-click="eventClicked(calendarEvent)"
+					on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+					cell-is-open="true"
+					on-date-range-select="vm.rangeSelected(calendarRangeStartDate, calendarRangeEndDate)">
+				</mwl-calendar>
+
+
+				<!-- Modal -->
+				<div class="modal fade" id="newInterviewModal" tabindex="-1"
+					role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel">Agendar
+									Entrevista</h4>
+							</div>
+							<form th:action="@{/interviews/new}" th:object="${interview}"
+								method="post" id="form_interview">
+
+								<div class="modal-body">
+
+									<div class="form-group">
+										<label>Cédula Visitante</label> <input type="number"
+											class="form-control" th:field="*{intervieweeId}" required="" />
+									</div>
+									<div class="form-group">
+										<label>Nombre Visitante</label> <input type="text"
+											class="form-control" th:field="*{intervieweeName}"
+											required="" title="Mucha loca" id="form_name" />
+									</div>
+
+									<div class="form-group">
+										<label for="exampleInputEmail1">Seleccione el preso</label> <select
+											class="selectpicker form-control" data-live-search="true"
+											th:field="*{prisoner}" required="">
+
+											<option
+												th:data-tokens="${p.getName() + ' '+ p.getLastName()}"
+												th:each="p : ${prisoners}" th:value="${p.id}"
+												th:text="${p.getName() + ' '+ p.getLastName()}"></option>
+										</select>
+									</div>
+
+
+									<div class="form-group">
+										<label for="exampleInputPassword1">Fecha Inicio</label>
+										<div>
+											<input type='text' class="form-control" id="startDate"
+												th:field="*{startDate}" required="" readonly="true" />
+										</div>
+
+
+									</div>
+
+									<div class="form-group">
+										<label for="exampleInputPassword1">Fecha Fin</label>
+										<div id='datetimepicker2'>
+											<input type='text' class="form-control" readonly="true"
+												id="endDate" th:field="*{endDate}" />
+										</div>
+									</div>
+
+
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Cerrar</button>
+									<input type="submit" class="btn btn-primary" value="Guardar"></input>
+								</div>
+							</form>
+
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+	<script src="libs/js/ui-bootstrap2.5.0.min.js"></script>
+	<script src="libs/js/angular-bootstrap-calendar-tpls.min.js"></script>
+	<script src="js/interviews_angular_module.js"></script>
+
+	<script type="text/javascript" th:inline="javascript">
+	    /*<![CDATA[*/
+	
+	    var theList = [[${interview.result}]]
+	    console.log(theList);
+	
+	    /*]]>*/
+	</script>
+
+</body>
+</html>

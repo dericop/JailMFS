@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+
+				<h3>Obtener datos en formato JSON</h3>
+				<br /> <br />
+				<h4>Prisoneros</h4>
+				<br />
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="col-xs-5">
+							<a href="/jmfs/api/prisoners">
+								<button class="btn btn-info pull-right form-control">Obtener</button>
+							</a>
+						</div>
+					</div>
+
+					<div class="col-xs-6">
+						<form th:action="@{/api/prisoners/{id}}" method="get">
+							<div class="col-xs-8">
+
+								<select name="prisoner_id" class="selectpicker form-control"
+									title="Seleccione un prisionero">
+									<option th:each="prisoner:${prisoners}"
+										th:text="${prisoner.getFullName()}"
+										th:value="${prisoner.getId()}"></option>
+								</select>
+							</div>
+							<div class="col-xs-2">
+								<button type="submit"
+									class="btn btn-info pull-right form-control glyphicon glyphicon-info-sign"></button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<br /> <br />
+				<h4>Sentencias</h4>
+				<br />
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="col-xs-5">
+							<a href="/jmfs/api/sentences"><button
+									class="btn btn-info pull-right form-control">Obtener</button></a>
+						</div>
+					</div>
+				</div>
+				<br /> <br />
+				<h4>Celdas</h4>
+				<br />
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="col-xs-5">
+							<a href="/jmfs/api/cells"><button
+									class="btn btn-info pull-right form-control">Obtener</button></a>
+						</div>
+					</div>
+
+
+				</div>
+				<br /> <br />
+				<h4>Bloques</h4>
+				<br />
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="col-xs-5">
+							<a href="/jmfs/api/blocks"><button
+									class="btn btn-info pull-right form-control">Obtener</button></a>
+						</div>
+					</div>
+
+					<div class="col-xs-6">
+						<form th:action="@{/api/block/{id}}" method="get">
+							<div class="col-xs-8">
+
+								<select name="block_id" class="selectpicker form-control"
+									title="Seleccione un bloque">
+									<option th:each="block:${blocks}"
+										th:text="'Bloque '+${block.getId()}"
+										th:value="${block.getId()}"></option>
+								</select>
+							</div>
+							<div class="col-xs-2">
+								<button
+									class="btn btn-info pull-right form-control glyphicon glyphicon-info-sign"></button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<br /> <br />
+				<h4>Entrevistas</h4>
+				<br />
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="col-xs-5">
+							<a href="/jmfs/api/interviews"><button
+									class="btn btn-info pull-right form-control">Obtener</button></a>
+						</div>
+					</div>
+				</div>
+				<br /> <br />
+				<h4>Autorizaciones</h4>
+				<br />
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="col-xs-5">
+							<a href="/jmfs/api/authorizations"><button
+									class="btn btn-info pull-right form-control">Obtener</button></a>
+						</div>
+					</div>
+				</div>
+				<br /> <br />
+				<h4>Visitantes</h4>
+				<br />
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="col-xs-5">
+							<a href="/jmfs/api/visitors"><button
+									class="btn btn-info pull-right form-control">Obtener</button></a>
+						</div>
+					</div>
+
+					<div class="col-xs-6">
+						<form th:action="@{/api/visitors/{id}}" method="get">
+							<div class="col-xs-8">
+
+								<select name="visitor_id" class="selectpicker form-control"
+									title="Seleccione un visitante">
+									<option th:each="visitor:${visitors}"
+										th:text="${visitor.getFullName()}"
+										th:value="${visitor.getId()}"></option>
+								</select>
+							</div>
+							<div class="col-xs-2">
+								<button
+									class="btn btn-info pull-right form-control glyphicon glyphicon-info-sign"></button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<br /> <br />
+				<h4>Visitas</h4>
+				<br />
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="col-xs-5">
+							<a href="/jmfs/api/visits"><button
+									class="btn btn-info pull-right form-control">Obtener</button></a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+
+</body>
+</html>

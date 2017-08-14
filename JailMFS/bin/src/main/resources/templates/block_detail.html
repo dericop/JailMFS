@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment"></head>
+
+<link rel="stylesheet" type="text/css" href="css/block_detail.css" />
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+			
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+				<h2 th:text="'Bloque '+${block.getId()}"> </h2>
+				<br/>
+				<div class="row">
+					<div class="col-xs-12 col-md-3">
+						<h4 th:text="'Capacidad: '+${block.getCapacity()}"></h4>
+					</div>
+					<div class="col-xs-12 col-md-8">
+						<div class="form form-inline pull-right"><!-- 
+							<select class="selectpicker" data-live-search="true" multiple="true" title="Buscar celda">
+								<option>Todas las celdas</option>
+								<option>Celda 1</option>
+								<option>Celda 2</option>
+								<option>Celda 3</option>
+							</select>  -->
+							<form method="post" th:action="@{blocks/deleteBlock}" id="deleteBlockForm">
+								<input type="hidden" id="block-id" name="blockId" th:value="${block.getId()}"></input>
+								<button id="btn-delete-block" type="submit"	class="btn btn-danger">Eliminar bloque</button>
+							</form>								
+						</div>
+					</div>
+				</div>
+
+				<hr />
+
+				<h4>
+					Haga <strong>click</strong> en un prisionero para ver mas
+					informacion
+				</h4>
+
+				<br></br>
+
+
+				<div class="row">
+					<div th:each="cell,itSt : ${block.getCells()}"
+						class="col-xs-12 cell-table">
+						<div class="row">
+							<div class="col-xs-5 text-center">
+								<h4
+									th:text="'Celda '+${itSt.count}+' - Capacidad: '+${cell.getCapacity()}+' &nbsp;&nbsp;&nbsp;'">
+								</h4>
+							</div>
+							<div class="col-xs-7">
+								<form method="post" th:action="@{blocks/deleteCell}" th:id="'deleteCellForm'+${cell.getId()}" class="deleteCellForm">
+									<input name="cellId" type="hidden" th:value="${cell.getId()}"></input>
+									<button type="submit" class="btn btn-danger btn-delete-cell">Eliminar celda</button>
+								</form>
+							</div>
+						</div>
+						<br></br>
+						<div th:if="${not #lists.isEmpty(cell.getPrisoners())}" class="table-responsive">
+							<table class="table table-hover table-condensed">
+								<thead>
+									<tr>
+										<th>Nombre</th>
+										<th>Apellido</th>
+										<th>Numero de serie</th>
+										<th>Telefono contacto</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="prisoner : ${cell.getPrisoners()}">
+										<td th:text="${prisoner.getName()}"></td>
+										<td th:text="${prisoner.getLastName()}"></td>
+										<td th:text="${prisoner.getSerialNumber()}"></td>
+										<td th:text="${prisoner.getContactPhoneNumber()}"></td>
+										<td>
+											<div class="form-inline">
+												<a class="btn btn-info btn-sm" th:href="'prisoners/'+${prisoner.getId()}">
+													<span class="glyphicon glyphicon glyphicon-info-sign"></span>
+												</a>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h4 th:if="${cell.getPrisoners().empty}" class="text-center">
+							Celda vacia
+						</h4>
+						<br/>
+					</div>
+
+					<div class="col-xs-12 cell-table text-center">
+						<button id="btn-new-cell" type="button"
+							class="btn btn-success btn-lg">Agregar celda</button>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="modal fade" id="modal-cell" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Agregar celda</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="cellCapacity">Capacidad de nueva celda</label> <input
+							type="number" class="form-control" name="cellCapacity"
+							id="cellCapacity" placeholder="Capacidad" />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+					<button id="btn-confirm-cell" type="button" class="btn btn-default">Crear</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row placeholders"></div>
+
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+
+	<script src="js/block_detail.js"></script>
+
+</body>
+</html>

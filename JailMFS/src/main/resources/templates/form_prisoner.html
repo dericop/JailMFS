@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment"></head>
+
+<link rel="stylesheet" type="text/css" href="css/prisoner_detail.css"/>
+<meta charset="UTF-8" />
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+			
+          		<h3 class="page-header">Nuevo prisionero</h3>
+          		
+          		<form th:action="@{/prisoners/new}" method="post">
+          		
+          			<div class="row detail-field-row">
+						<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Nombres</label> 
+								<input type="text" class="form-control"
+									placeholder="Nombres" th:field="*{prisoner.name}" required=""></input>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Apellidos</label> <input
+									type="text" class="form-control"
+									placeholder="Apellidos" th:field="*{prisoner.lastName}" required=""></input>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row detail-field-row">
+						<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Lugar de Nacimiento</label> 
+								<input type="text" class="form-control"
+									placeholder="Lugar de nacimiento" th:field="*{prisoner.birthPlace}" required=""></input>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Fecha de nacimiento</label> 
+								<input type="date" class="form-control" data-provide="datepicker"
+									data-date-format="yyyy-mm-dd" placeholder="" th:field="*{prisoner.birthDate}" required=""></input>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row detail-field-row">
+						<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Número de serie</label> 
+								<input type="text" class="form-control"
+									placeholder="Número de serie" th:field="*{prisoner.serialNumber}" required=""></input>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Número de contacto</label> 
+								<input type="text" class="form-control"
+									placeholder="Número de contacto" th:field="*{prisoner.contactPhoneNumber}" required=""></input>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row detail-field-row">
+						<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Fecha de inicio de condena</label> 
+								<input type="date" class="form-control" data-provide="datepicker"
+									data-date-format="yyyy-mm-dd" placeholder="Fecha inicio condena" th:field="*{sentence.startDate}" required=""></input>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Fecha de fin de condena</label> 
+								<input type="date" class="form-control" data-provide="datepicker"
+									data-date-format="yyyy-mm-dd" placeholder="Fecha inicio condena" th:field="*{sentence.endDate}" required=""></input>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row detail-field-row">
+						<div class="col-xs-12 col-lg-8 detail-field">
+							<label for="exampleInputEmail1">Razón de la condena</label>
+							<textarea class="form-control" th:field="*{sentence.reason}"></textarea>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-xs-12 col-lg-8 text-center">
+							<div class="form-inline">
+								<input type="submit" class="btn btn-success btn-lg" value="Guardar" />
+								<a href="/jmfs/prisoners"><button type="button" class="btn btn-danger btn-lg">Cancelar</button></a>
+							</div>
+						</div>
+					</div>
+          		</form>
+
+			</div>
+
+		</div>
+	</div>
+	
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+
+</body>
+</html>

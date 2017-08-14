@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>    
+    <base href="/jmfs/"/>
+    <link rel="stylesheet" type="text/css" href="libs/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet"/>
+    
+</head>
+<body>
+    
+    <div class="container g-container">
+    	<div class="login-container">
+    		<div class="top-container">
+    			<div class="title-c">
+    				<h4 class="login-title">Mís primeros pasos</h4>
+    			</div>
+    			
+    			<div class="avatar-c">
+    				<img class="img-avatar" alt="avatar" src="img/avatar.png"/>
+    			</div>
+    			
+    		</div>
+    		
+    		<div class="bottom-container">
+    			<form class="form-signin">
+			        
+			        <input type="email" id="inputEmail" class="form-control" placeholder="Usuario" required="" autofocus=""/>
+			        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required=""/>
+			        
+			        
+			     </form>
+			     <button id="test" class="btn btn-lg btn-primary btn-block submit-btn" type="submit" onclick="location.href='/jmfs/dashboard';">Iniciar sesión</button>
+    		</div>
+    		
+    	</div>
+
+    </div>
+    
+    <script src="libs/js/jquery-3.2.1.min.js"></script>
+    <script src="libs/js/bootstrap.min.js"></script>
+</body>
+</html>

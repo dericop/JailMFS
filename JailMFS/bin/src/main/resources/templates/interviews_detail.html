@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment">
+<meta charset="UTF-8"></meta>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+
+				<div class="col-sm-12 col-md-12">
+
+					<h3>Autorización de visitante</h3>
+					<br />
+
+					<form th:action="@{/interviews/approved}" method="post"
+						id="form_interview">
+
+						<div class="form-group">
+							<label>Cédula Visitante</label> <input type="number"
+								class="form-control" th:field="*{interview.intervieweeId}"
+								required="" readonly="true" />
+						</div>
+						<div class="form-group">
+							<label>Nombre Visitante</label> <input type="text"
+								class="form-control" th:field="*{interview.intervieweeName}"
+								required="" id="form_name" readonly="true" />
+						</div>
+
+						<div class="form-group">
+							<label for="exampleInputEmail1">Preso</label> <input
+								type='hidden' class="form-control" id="startDate"
+								th:field="*{interview.prisoner}" required="" readonly="true" />
+							<input type='text' class="form-control" required=""
+								readonly="true" th:value="${interview.getPrisoner().getName()}" />
+						</div>
+
+
+						<div class="form-group">
+							<label for="exampleInputPassword1">Fecha Inicio</label>
+							<div>
+								<input type='text' class="form-control" id="startDate"
+									th:field="*{interview.startDate}" required="" readonly="true" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="exampleInputPassword1">Fecha Fin</label>
+							<div id='datetimepicker2'>
+								<input type='text' class="form-control" readonly="true"
+									id="endDate" th:field="*{interview.endDate}" />
+							</div>
+						</div>
+
+
+
+						<div class="form-group" th:if="${interview.getResult() == pending}" >
+							<label for="exampleInputEmail1">Seleccione el parentesco</label>
+							<select class="selectpicker form-control" data-live-search="true"
+								required="" th:field="*{authorization.relationship}">
+
+								<option th:data-tokens="" th:each="r : ${relationships}"
+									th:value="${r}" th:text="${r}"></option>
+							</select>
+						</div>
+						
+						
+						<div class="form-group" th:if="${not (interview.getResult() == pending)}">
+							<label for="exampleInputPassword1">Parentesco</label>
+							<div>
+								<input type='text' class="form-control" readonly="true"
+									id="relationship" th:value="${authorization.relationship}" />
+							</div>
+						</div>
+						
+
+
+						<br />
+						
+						<p th:if="${interview.getResult() == denied}" class="bg-danger" style="padding:15px; font-weight:500">Autorización Denegada</p>
+						<p th:if="${interview.getResult() == approved}" class="bg-success" style="padding:15px; font-weight:500">Autorización Aprobada</p>
+						
+						<div class="col-md-12" th:if="${interview.getResult() == pending}">
+							<div class="col-md-6">
+
+								<button id="btn-authorize" type="button" class="btn btn-success btn-lg pull-right"
+									aria-label="Left Align">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									Aprobar
+								</button>
+							</div>
+							<div class="col-md-6">
+								<button id="btn-dennied" type="button" class="btn btn-danger btn-lg pull-left"
+									aria-label="Left Align">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									Denegar
+								</button>
+							</div>
+
+						</div>
+
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
+
+						<div class="col-xs-12 col-md-12" id="visitor-data">
+							<h3 class="page-header">Nuevo Visitante</h3>
+							<br></br>
+
+							<div class="row detail-field-row">
+								<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+									<div class="form-group">
+										<label>Cédula</label> <input
+											type="number" class="form-control"
+											placeholder="Alam" th:field="*{visitor.idCard}" required=""></input>
+									</div>
+
+								</div>
+								<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+									<div class="form-group">
+										<label>Primer nombre</label> <input
+											type="text" class="form-control"
+											placeholder="Alam" th:field="*{visitor.name}" required=""></input>
+									</div>
+								</div>
+
+
+							</div>
+
+							<div class="row detail-field-row">
+
+								<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+									<div class="form-group">
+										<label>Apellido</label> <input
+											type="text" class="form-control"
+											placeholder="Brito" th:field="*{visitor.lastName}"
+											required=""></input>
+									</div>
+								</div>
+
+								<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+									<div class="form-group">
+										<label>Fecha de nacimiento</label> <input
+											type="date" class="form-control"
+											placeholder="" th:field="*{visitor.birthday}" required=""></input>
+									</div>
+								</div>
+							</div>
+
+							<div class="row detail-field-row">
+
+
+								<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+									<div class="form-group">
+										<label>Ciudad de Nacimiento</label> <input
+											type="text" class="form-control"
+											th:field="*{visitor.birthplace}" placeholder="Manizales, etc"
+											required=""></input>
+									</div>
+								</div>
+
+								<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+									<div class="form-group">
+										<label>Dirección</label><input
+											type="text" class="form-control"
+											placeholder="Carrera nn # 10 - 23 Manizales"
+											th:field="*{visitor.address}" required=""></input>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row detail-field-row">
+
+								<div class="col-xs-12 col-sm-6 col-lg-6 detail-field">
+									<div class="form-group">
+										<label>Teléfono</label><input
+											type="number" class="form-control"
+											placeholder="3117693058" th:field="*{visitor.phone}"
+											required=""></input>
+									</div>
+								</div>
+
+							</div>
+							
+							<br></br>
+							
+							<input type="hidden" name="intId" th:value="${interview.getId()}"/>
+
+							<div class="row">
+								<div class="col-xs-12 col-md-12 text-center">
+									<div class="form-inline">
+										<input type="submit" class="btn btn-success btn-lg"
+											value="Guardar"></input>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</form>
+
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+	<script src="js/interviews_detail.js"></script>
+
+</body>
+</html>

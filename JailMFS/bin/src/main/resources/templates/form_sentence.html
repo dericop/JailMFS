@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment"></head>
+
+<link rel="stylesheet" type="text/css" href="css/prisoner_detail.css"/>
+<meta charset="UTF-8" />
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+			
+          		<h3 class="page-header">Registrar sentencia para el prisionero</h3>
+          		<h4 th:text="${p.getName()} + ' ' + ${p.getLastName()} "></h4>
+          		<br/>
+          		
+          		<form th:action="'prisoners/'+${p.getId()}+'/newSentence'" th:object="${sentence}" method="post">
+          		
+          			<div class="row detail-field-row">
+						<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Fecha de inicio de condena</label> 
+								<input type="date" class="form-control" data-provide="datepicker"
+									data-date-format="yyyy-mm-dd" placeholder="Fecha inicio condena" th:field="*{startDate}" required=""></input>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+							<div class="form-group">
+								<label for="exampleInputEmail1">Fecha de fin de condena</label> 
+								<input type="date" class="form-control" data-provide="datepicker"
+									data-date-format="yyyy-mm-dd" placeholder="Fecha inicio condena" th:field="*{endDate}" required=""></input>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row detail-field-row">
+						<div class="col-xs-12 col-lg-8 detail-field">
+							<label for="exampleInputEmail1">Razón de la condena</label>
+							<textarea class="form-control" th:field="*{reason}"></textarea>
+						</div>
+					</div>
+					
+					<input type="hidden" th:value="${p.getId()}" name="prisoner"></input>
+					
+					<div class="row">
+						<div class="col-xs-12 col-lg-8 text-center">
+							<div class="form-inline">
+								<input type="submit" class="btn btn-success btn-lg" value="Guardar" />
+								<a th:href="'prisoners/'+${p.getId()}"><button type="button" class="btn btn-danger btn-lg">Cancelar</button></a>
+							</div>
+						</div>
+					</div>
+          		</form>
+
+			</div>
+
+		</div>
+	</div>
+	
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment">
+<meta charset="UTF-8" />
+</head>
+
+<link rel="stylesheet" type="text/css" href="css/prisoner_detail.css" />
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+				<h3 class="page-header"
+					th:text="'Visitante ' + ${visitor.getName()}"></h3>
+				<div class="row">
+
+					<div class="col-xs-12 text-center">
+						<div class="col-xs-6 col-md-6">
+							<a class="btn btn-info btn-lg pull-right"
+								th:href="'visitors/' + ${visitor.getId()} + '/edit'">Editar</a>
+						</div>
+
+						<div class="col-xs-6 col-md-6">
+							<form method="post" th:action="@{/visitors/delete}"
+								id="deleteForm" class="pull-left">
+								<input name="id" type="hidden" th:value="${visitor.getId()}"></input>
+								<input id="btn-deleteVisitor" type="submit"
+									class="btn btn-danger btn-lg" value="Eliminar"></input>
+							</form>
+						</div>
+
+					</div>
+				</div>
+				<hr></hr>
+				<div class="row detail-field-row">
+					<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+						<h4>Nombre</h4>
+						<p th:text="${visitor.getName()}"></p>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+						<h4>Cédula</h4>
+						<p th:text="${visitor.getIdCard()}"></p>
+					</div>
+				</div>
+				<div class="row detail-field-row">
+					<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+						<h4>Apellido</h4>
+						<p th:text="${visitor.getLastName()}"></p>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+						<h4>Fecha de nacimiento</h4>
+						<p th:text="${visitor.getBirthday()}"></p>
+					</div>
+				</div>
+				<div class="row detail-field-row">
+					<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+						<h4>Lugar de Nacimiento</h4>
+						<p th:text="${visitor.getBirthplace()}"></p>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+						<h4>Dirección</h4>
+						<p th:text="${visitor.getAddress()}"></p>
+					</div>
+				</div>
+				<div class="row detail-field-row">
+					<div class="col-xs-12 col-sm-6 col-lg-4 detail-field">
+						<h4>Teléfono</h4>
+						<p th:text="${visitor.getPhone()}"></p>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<h4>Presos autorizados para visita</h4>
+						<div class="table-responsive">
+							<table class="table table-hover table-condensed">
+								<thead>
+									<tr>
+										<th>Nombre</th>
+										<th>Identificacion</th>
+										<th>Parentesco</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="auth:${visitor.getAuthorizations()}">
+										<td th:text="${auth.getPrisoner().getFullName()}"></td>
+										<td th:text="${auth.getPrisoner().getSerialNumber()}"></td>
+										<td th:text="${auth.getRelationship()}"></td>
+										<td>
+											<form th:action="@{/visitors/deleteAuth}" method="POST">
+												<div class="form-inline">
+													<a class="btn btn-info btn-sm"
+														th:href="'prisoners/'+${auth.getPrisoner().getId()}">
+														<span class="glyphicon glyphicon glyphicon-info-sign"></span>
+													</a> <input name="authid" type="hidden"
+														th:value="${auth.getId()}"></input> 
+														<input type="hidden" name="id" th:value="${visitor.getId()}"></input>
+
+													<button type="button"
+														class="btn btn-danger btn-sm btn-deleteAuth">
+														<span class="glyphicon glyphicon-trash"></span>
+													</button>
+												</div>
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+
+	<script src="js/visitors.js"></script>
+
+</body>
+</html>

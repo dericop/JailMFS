@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+
+				<h3 class="page-header">Condenas Cumplidas</h3>
+
+				<div class="row filter-menu">
+
+					<form id="report-form" th:action="@{/reports/convictions-fullfilled/getdata}" method="GET">
+						<div class="col-sm-12 col-md-3">
+							<label class="filter-label" for="">Fecha de inicio</label> <input
+								type="date" class="form-control" placeholder="Text input" id="startDate" name="startDate" required=""/>
+						</div>
+
+						<div class="col-sm-12 col-md-3">
+							<label class="filter-label" for="exampleInputEmail1">Fecha
+								de fin</label> <input type="date" class="form-control"
+								placeholder="Text input" name="endDate" id="endDate" required=""/>
+						</div>
+
+						<div class="col-sm-12 col-md-2">
+							<input id="btn-getReport" type="submit" class="btn btn-success csearch-button" value="Consultar"/>
+						</div>
+					</form>
+
+
+
+				</div>
+
+				<div class="row results">
+					<div class="result-menu">
+						<div class="col-sm-12 col-md-6 visitors-header-container">
+							<h4 class="visitors-subheader">Resultados:</h4>
+						</div>
+
+					</div>
+
+					<table class="table table-hover tresults">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Cedula</th>
+								<th>Nombre</th>
+								<th>Celda</th>
+								<th>Inicio condena</th>
+								<th>Fin condena</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">1</th>
+								<td>1.056.897.234</td>
+								<td>Otto</td>
+								<td>1</td>
+								<td>04 - dic - 2000</td>
+								<td>20 - ene - 2025</td>
+							</tr>
+
+
+						</tbody>
+					</table>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+	<script src="js/convictions.js"></script>
+	
+
+</body>
+</html>

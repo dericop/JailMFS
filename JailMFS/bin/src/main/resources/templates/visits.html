@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_view_base :: header-fragment"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin_view_base :: nav-fragment"></div>
+
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+
+				<h3 class="page-header">Registrar Visitas</h3>
+				<br></br>
+				<div class="row">
+					<form th:action="@{/visits/register}" th:object="${visit}"
+						method="post">
+						<div class="col-xs-12 col-md-6">
+							<div class="form-group">
+								<label for="Preso" class="col-lg-2 control-label">Preso</label>
+								<select id="prisoner-select" class="selectpicker show-tick form-control"
+									name="prisoner_id" data-live-search="true" title="Elija un prisionero">
+									<option th:each="prisoner:${prisoners}"
+										th:text="${prisoner.getName()} + ' ' + ${prisoner.getLastName()}"
+										th:value="${prisoner.getId()}"></option>
+
+								</select>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-6">
+							<div class="form-group">
+								<label for="visitante" class="col-lg-2 control-label">Visitante</label>
+								<select id="visitor-select" name="visitor_id"
+									class="selectpicker show-tick form-control"
+									data-live-search="true" disabled="true" title="Visitantes autorizados">
+								</select>
+							</div>
+						</div>
+						<input type="date" th:field="*{date}" hidden="hidden" />
+						<div class="row">
+							<div class="col-xs-12 text-center">
+								<input type="submit" class="btn btn-success btn-lg"
+									value="Registrar" />
+							</div>
+						</div>
+					</form>
+				</div>
+
+
+
+				<br></br>
+				<hr></hr>
+
+				<div class="row">
+					<div class="col-xs-12">
+						<h4>Visitas Registradas</h4>
+						
+						
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Visitante</th>
+										<th>Prisionero</th>
+										<th>Fecha</th>										
+										<th>Parentesco</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr  th:each="visit:${visits}" >
+										<td th:text="${visit.getVisitorFullName()}"></td>
+										<td th:text="${visit.getPrisonerFullName()}"></td>
+										<td th:text="${visit.getDate()}"></td>
+										<td th:text="${visit.getRelationship()}"></td>					
+										<td>
+											<form method="post" th:action='@{visits/delete}'>
+												<input type="hidden" th:value="${visit.getId()}" name="id"></input>
+												<button class="btn btn-danger btn-sm" type="submit"><span class="glyphicon glyphicon-trash"></span></button>
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="row placeholders"></div>
+
+			</div>
+
+		</div>
+	</div>
+	
+	<div th:replace="admin_view_base :: scripts-fragment"></div>
+	
+	<script src="js/visits.js"></script>
+
+</body>
+</html>
